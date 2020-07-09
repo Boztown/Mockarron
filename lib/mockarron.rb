@@ -1,17 +1,17 @@
 require "mockarron/version"
 require 'sinatra'
+require 'yaml'
 
 module Mockarron
   class Error < StandardError; end
 
   class WebServer < Sinatra::Base
-    get '/' do
-      "I started this gangsta shit."
-    end
-  end
+    $route_defs = YAML.load(File.read("routes.yaml"))
+    $routes = $route_defs.map { |r| Route.new(r) }
 
-  def self.run
-    puts "something."
+    get '/' do
+      "UI for route selection upcoming."
+    end
   end
 end
 
