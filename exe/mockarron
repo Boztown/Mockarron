@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 require 'mockarron'
 
-Mockarron.run
+Mockarron::WebServer.run!
