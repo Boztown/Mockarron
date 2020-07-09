@@ -1,4 +1,10 @@
 #!/usr/bin/env ruby
-require 'mockarron'
 
+# For easier development
+require './lib/mockarron.rb'
+
+# Should be this for real
+# require 'mockarron'
+
+puts "Starting Mockarron..."
 Mockarron::WebServer.run!
