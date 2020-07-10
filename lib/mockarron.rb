@@ -1,6 +1,7 @@
+require 'pry-byebug'
 require "mockarron/version"
 require 'sinatra'
-require 'sinatra/reloader'
+require 'sinatra/reloader'if settings.environment == :development
 require 'yaml'
 
 module Mockarron
@@ -8,7 +9,7 @@ module Mockarron
 
   class WebServer < Sinatra::Base
     configure :development do
-      register Sinatra::Reloader
+      # register Sinatra::Reloader
     end
     # $route_defs = YAML.load(File.read("routes.yaml"))
     # $routes = $route_defs.map { |r| Route.new(r) }
