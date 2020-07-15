@@ -15,7 +15,7 @@ module Mockarron
     # $routes = $route_defs.map { |r| Route.new(r) }
 
     get '/' do
-      "UI for route selection upcoming?"
+      erb :index
     end
   end
 end
