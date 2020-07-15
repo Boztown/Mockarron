@@ -1,1 +1,5 @@
-Index
+<% if @routes.empty? %>
+  <div class="error">
+    There was a problem loading the routes.yaml file.
+  </div>
+<% end %>
