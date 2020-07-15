@@ -2,8 +2,8 @@ ENV['APP_ENV'] = 'test'
 ENV['RACK_ENV'] = 'test'
 
 require "bundler/setup"
-require 'rack/test'
 require "mockarron"
+require 'rack/test'
 
 module RSpecMixin
   include Rack::Test::Methods

@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 RSpec.describe Mockarron::App do
   describe "#load_route_data" do
     context "when the routes YAML file isn't where it should be" do

@@ -1,3 +1,6 @@
+require 'spec_helper'
+require "mockarron/web_server"
+
 RSpec.describe Mockarron::WebServer do
   describe "Initialization" do
     context "when there's an issue loading the server" do

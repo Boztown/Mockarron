@@ -1,7 +1,9 @@
-module Mockarron
-  require 'mockarron'
-  require 'sinatra/base'
+require 'sinatra/base'
+require 'yaml'
+require "mockarron/app"
+require "mockarron/error"
 
+module Mockarron
   class WebServer < Sinatra::Base
     set :views, "#{settings.root}/../views"
     set :public_folder, "#{settings.root}/../public"

@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby
 
+
 # For easier development
-require './lib/mockarron.rb'
+require "bundler/setup"
+require_relative '../lib/mockarron/web_server.rb'
 
 # Should be this for real
 # require 'mockarron'
