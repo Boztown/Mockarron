@@ -3,10 +3,12 @@
 
 # For easier development
 require "bundler/setup"
-require_relative '../lib/mockarron/web_server.rb'
+require_relative '../lib/mockarron/cli.rb'
 
 # Should be this for real
 # require 'mockarron'
 
-puts "Starting Mockarron..."
-Mockarron::WebServer.run!
+# puts "Starting Mockarron..."
+# Mockarron::WebServer.run!
+
+Mockarron::CLI.start
