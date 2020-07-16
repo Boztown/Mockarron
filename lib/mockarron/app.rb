@@ -3,12 +3,12 @@ require 'mockarron/route'
 
 module Mockarron
   class Result
-    attr_accessor :error, :message, :returned
+    attr_accessor :error, :message, :data
 
-    def initialize(error: false, message: nil, returned: nil)
+    def initialize(error: false, message: nil, data: nil)
       @error = error
       @message = message
-      @returned = returned
+      @data = data
     end
 
     def error?
@@ -29,16 +29,17 @@ module Mockarron
         )
       end
 
-      unless route_file_exists?(path)
-        template_file = File.read(ROUTE_TEMPLATE_FILE)
-        puts "Creating `#{ROUTE_DATA_FILE}` file"
-        File.write(path + "/" + ROUTE_DATA_FILE, template_file)
-      end
+      template_file = File.read(ROUTE_TEMPLATE_FILE)
+      puts "Creating `#{ROUTE_DATA_FILE}` file"
+      File.write(path + "/" + ROUTE_DATA_FILE, template_file)
 
-      unless templates_exists?(path)
-        puts "Creating `/#{TEMPLATE_DIR}` directory"
-        Dir.mkdir(path + "/" + TEMPLATE_DIR)
-      end
+      puts "Creating `/#{TEMPLATE_DIR}` directory"
+      Dir.mkdir(path + "/" + TEMPLATE_DIR)
+
+      return Result.new(
+        error: false,
+        message: "Project successfully initialized"
+      )
     end
 
     def load_route_data
