@@ -3,6 +3,18 @@ require "mockarron/cli"
 
 RSpec.describe Mockarron::CLI do
   describe "Command: new" do
+    context "when the chosen directory is not empty" do
+      it "returns an error, and does not create any files" do
+        dirname = "mymockarron"
+        Dir.mkdir(dirname)
+        File.write("#{dirname}/something.txt", "here")
+        result = subject.new
+        expect(result.error?).to be true
+        expect(File.exists?("#{dirname}/#{Mockarron::App::ROUTE_DATA_FILE}")).to be false
+        FileUtils.remove_dir(dirname, true)
+      end
+    end
+
     context "when there is no existing 'routes.yaml' file" do
       before do
         allow_any_instance_of(Mockarron::App)

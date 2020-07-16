@@ -2,19 +2,42 @@ require 'mockarron/error'
 require 'mockarron/route'
 
 module Mockarron
+  class Result
+    attr_accessor :error, :message, :returned
+
+    def initialize(error: false, message: nil, returned: nil)
+      @error = error
+      @message = message
+      @returned = returned
+    end
+
+    def error?
+      @error
+    end
+  end
+
   class App
     ROUTE_DATA_FILE     = "routes.yaml"
     ROUTE_TEMPLATE_FILE = "routes.template.yaml"
     TEMPLATE_DIR        = "templates"
 
-    def new_project
-      unless route_file_exists?
-        template_file = File.read(ROUTE_TEMPLATE_FILE)
-        File.write(ROUTE_DATA_FILE, template_file)
+    def new_project(path = ".")
+      unless path_is_empty?(path)
+        return Result.new(
+          error: true,
+          message: "Directory is not empty!"
+        )
       end
 
-      unless templates_exists?
-        Dir.mkdir(TEMPLATE_DIR)
+      unless route_file_exists?(path)
+        template_file = File.read(ROUTE_TEMPLATE_FILE)
+        puts "Creating `#{ROUTE_DATA_FILE}` file"
+        File.write(path + "/" + ROUTE_DATA_FILE, template_file)
+      end
+
+      unless templates_exists?(path)
+        puts "Creating `/#{TEMPLATE_DIR}` directory"
+        Dir.mkdir(path + "/" + TEMPLATE_DIR)
       end
     end
 
@@ -32,12 +55,16 @@ module Mockarron
 
     private
 
-      def route_file_exists?
-        File.exists? ROUTE_DATA_FILE
+      def route_file_exists?(path = ".")
+        File.exists? path + "/" + ROUTE_DATA_FILE
       end
 
-      def templates_exists?
-        File.directory? TEMPLATE_DIR
+      def templates_exists?(path = ".")
+        File.directory? path + "/" + TEMPLATE_DIR
+      end
+
+      def path_is_empty?(path = ".")
+        Dir.empty? path
       end
   end
 end
