@@ -4,11 +4,28 @@ require "mockarron/cli"
 RSpec.describe Mockarron::CLI do
   describe "Command: new" do
     context "when there is no existing 'routes.yaml' file" do
-      before { allow(File).to receive(:exists?).and_return(false) }
+      before do
+        allow_any_instance_of(Mockarron::App)
+          .to receive(:route_file_exists?)
+          .and_return(false)
+      end
 
       it "should create a 'routes.yaml' file based on the template" do
         template_file = File.read(Mockarron::App::ROUTE_TEMPLATE_FILE)
         expect(File).to receive(:write).with("routes.yaml", template_file)
+        subject.new
+      end
+    end
+
+    context "when there is no existing 'templates' directory" do
+      before do
+        allow_any_instance_of(Mockarron::App)
+          .to receive(:templates_exists?)
+          .and_return(false)
+      end
+
+      it "should create a 'templates' directory" do
+        expect(Dir).to receive(:mkdir).with(Mockarron::App::TEMPLATE_DIR)
         subject.new
       end
     end

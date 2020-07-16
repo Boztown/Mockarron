@@ -1,3 +1,5 @@
+require 'mockarron/route_response'
+
 module Mockarron
   class Route
     attr_reader :uri, :params, :responses
