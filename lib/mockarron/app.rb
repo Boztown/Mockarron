@@ -2,11 +2,13 @@ require 'mockarron/error'
 
 module Mockarron
   class App
-    ROUTE_DATA_FILE = "routes.yaml"
+    ROUTE_DATA_FILE     = "routes.yaml"
+    ROUTE_TEMPLATE_FILE = "routes.template.yaml"
 
     def new_project
       unless File.exists? ROUTE_DATA_FILE
-        File.write("routes.yaml", "Hi")
+        template_file = File.read(ROUTE_TEMPLATE_FILE)
+        File.write(ROUTE_DATA_FILE, template_file)
       end
     end
 
