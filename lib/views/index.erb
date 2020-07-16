@@ -1,4 +1,60 @@
-<% unless @routes %>
+<% if @routes %>
+  <% @routes.each do |route| %>
+    <h2>
+      <% if route.method == :get %>
+        <%= route.uri %>
+        <a class="btn" href="<%= route.uri %>">
+          Hit it
+        </a>
+      <% else %>
+        <%= route.uri %>
+        <form action="<%= route.uri %>" method="post" style="display: inline-block;">
+          <input type="submit" class="btn" value="Hit it">
+        </form>
+      <% end %>
+      <span class="method-badge">
+        [<%= route.method %>]
+      </span>
+    </h2>
+
+    <table>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Method</th>
+            <th>Code</th>
+            <th>Select</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% route.responses.each do |resp| %>
+            <% if resp.selected %>
+            <tr style="background: #ffff8f;">
+            <% else %>
+            <tr>
+            <% end %>
+              <td>
+                <a href="/show/<%= resp.id %>">
+                  <%= resp.file %>
+                </a>
+              </td>
+              <td>
+                <%= route.method %>
+              </td>
+              <td>
+                <%= resp.code %>
+              </td>
+              <td style="vertical-align: middle;">
+                <form action="/select/<%= resp.id %>" method="post" style="display: inline;">
+                  <input type="submit" value="Use this one">
+                </form>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+    </table>
+  <% end %>
+<% else %>
   <div class="error">
     There was a problem loading the routes.yaml file.
   </div>
