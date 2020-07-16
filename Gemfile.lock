@@ -4,6 +4,7 @@ PATH
     mockarron (0.1.1)
       json (= 2.3.1)
       sinatra (= 2.0.8.1)
+      thor
       yaml (= 0.1.0)
 
 GEM
@@ -47,6 +48,7 @@ GEM
       rack (~> 2.0)
       rack-protection (= 2.0.8.1)
       tilt (~> 2.0)
+    thor (1.0.1)
     tilt (2.0.10)
     yaml (0.1.0)
 
@@ -60,7 +62,6 @@ DEPENDENCIES
   rack-test
   rake (>= 12.3.3)
   rspec (~> 3.0)
-  sinatra (= 2.0.8.1)
 
 BUNDLED WITH
    1.17.2

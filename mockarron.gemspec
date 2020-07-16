@@ -43,6 +43,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rack-test'
 
   spec.add_dependency 'sinatra', '2.0.8.1'
+  spec.add_dependency "thor"
   spec.add_dependency 'json', '2.3.1'
   spec.add_dependency 'yaml', '0.1.0'
 end
