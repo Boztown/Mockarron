@@ -7,6 +7,10 @@ RSpec.describe Mockarron::CLI do
   let(:route_file_path) { "#{spec_tmp_dir}/#{Mockarron::App::ROUTE_DATA_FILE}" }
 
   before do
+    @original_puts = $stdout.method(:puts)
+    allow($stdout).to receive(:puts) do |arg|
+      @original_puts.call("OUTPUT: #{arg}")
+    end
     FileUtils.remove_dir(spec_tmp_dir, true)
     Dir.mkdir(spec_tmp_dir)
   end
