@@ -12,7 +12,7 @@ module Mockarron
     end
 
     def error?
-      @error
+      @error == true
     end
   end
 

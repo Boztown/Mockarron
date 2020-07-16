@@ -2,6 +2,15 @@ require 'spec_helper'
 require "mockarron/cli"
 
 RSpec.describe Mockarron::CLI do
+
+  let(:spec_tmp_dir)    { "spec/tmp" }
+  let(:route_file_path) { "#{spec_tmp_dir}/#{Mockarron::App::ROUTE_DATA_FILE}" }
+
+  before do
+    FileUtils.remove_dir(spec_tmp_dir, true)
+    Dir.mkdir(spec_tmp_dir)
+  end
+
   describe "Command: new" do
     context "when the chosen directory is not empty" do
       it "returns an error, and does not create any files" do
@@ -24,8 +33,8 @@ RSpec.describe Mockarron::CLI do
 
       it "should create a 'routes.yaml' file based on the template" do
         template_file = File.read(Mockarron::App::ROUTE_TEMPLATE_FILE)
-        expect(File).to receive(:write).with("routes.yaml", template_file)
-        subject.new
+        expect(File).to receive(:write).with(route_file_path, template_file)
+        subject.new(spec_tmp_dir)
       end
     end
 
@@ -37,8 +46,8 @@ RSpec.describe Mockarron::CLI do
       end
 
       it "should create a 'templates' directory" do
-        expect(Dir).to receive(:mkdir).with(Mockarron::App::TEMPLATE_DIR)
-        subject.new
+        expect(Dir).to receive(:mkdir).with("#{spec_tmp_dir}/#{Mockarron::App::TEMPLATE_DIR}")
+        subject.new(spec_tmp_dir)
       end
     end
   end
