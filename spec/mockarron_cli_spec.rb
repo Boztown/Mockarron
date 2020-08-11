@@ -16,6 +16,14 @@ RSpec.describe Mockarron::CLI do
   end
 
   describe "Command: new" do
+    context "when the chosen directory does not exist" do
+      it "should create it" do
+        dirname = "myproject"
+        subject.new(dirname)
+        expect(Dir.exists?(dirname)).to be true
+      end
+    end
+
     context "when the chosen directory is not empty" do
       it "returns an error, and does not create any files" do
         dirname = "mymockarron"
