@@ -22,7 +22,11 @@ module Mockarron
     TEMPLATE_DIR        = "templates"
 
     def new_project(path = ".")
-      unless path_is_empty?(path)
+      if path_does_not_exist?(path)
+        Dir.mkdir(path)
+      end
+
+      if path_is_not_empty?(path)
         return Result.new(
           error: true,
           message: "Directory is not empty!"
@@ -64,8 +68,12 @@ module Mockarron
         File.directory? path + "/" + TEMPLATE_DIR
       end
 
-      def path_is_empty?(path = ".")
-        Dir.empty? path
+      def path_is_not_empty?(path = ".")
+        !(Dir.empty?(path))
+      end
+
+      def path_does_not_exist?(path)
+        !(Dir.exists?(path))
       end
   end
 end
