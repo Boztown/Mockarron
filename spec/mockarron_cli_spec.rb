@@ -16,9 +16,16 @@ RSpec.describe Mockarron::CLI do
   end
 
   describe "Command: new" do
+    context "when generally successful" do
+      it "should output a success message" do
+        expect { subject.new("#{spec_tmp_dir}/myproject") }
+          .to output(/Project successfully initialized/).to_stdout
+      end
+    end
+
     context "when the chosen directory does not exist" do
       it "should create it" do
-        dirname = "myproject"
+        dirname = "#{spec_tmp_dir}/myproject"
         subject.new(dirname)
         expect(Dir.exists?(dirname)).to be true
       end
@@ -26,11 +33,14 @@ RSpec.describe Mockarron::CLI do
 
     context "when the chosen directory is not empty" do
       it "returns an error, and does not create any files" do
-        dirname = "mymockarron"
+        # set up a faux existing directory and file
+        dirname = "#{spec_tmp_dir}/myproject"
         Dir.mkdir(dirname)
         File.write("#{dirname}/something.txt", "here")
-        result = subject.new
-        expect(result.error?).to be true
+
+        expect { subject.new(dirname) }
+          .to output(/Directory is not empty!/).to_stdout
+
         expect(File.exists?("#{dirname}/#{Mockarron::App::ROUTE_DATA_FILE}")).to be false
         FileUtils.remove_dir(dirname, true)
       end
