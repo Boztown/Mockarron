@@ -32,6 +32,11 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Run `./exe/mockarron` to run CLI without rebuilding.
 
+### Run Example Project
+```
+cd example_project
+../exe/mockarron server
+```
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/mockarron.
