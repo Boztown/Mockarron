@@ -1,7 +1,7 @@
 require 'mockarron/error'
 require 'mockarron/route'
 require 'mockarron/result'
-
+require 'pry'
 module Mockarron
   class App
     ROUTE_DATA_FILE     = "routes.yaml"
@@ -58,6 +58,8 @@ module Mockarron
           return resp if resp.id == id
         end
       end
+
+      nil
     end
 
     private
