@@ -2,7 +2,7 @@ require 'sinatra/base'
 require 'yaml'
 require "mockarron/app"
 require "mockarron/error"
-
+require 'pry'
 module Mockarron
   class WebServer < Sinatra::Base
     set :app, Mockarron::App.new
@@ -20,7 +20,12 @@ module Mockarron
 
     get "/show/:id" do
       @route_response = settings.app.find_route_response_by_id(params["id"])
+      halt 404 unless @route_response
       erb :show
+    end
+
+    not_found do
+      'This is nowhere to be found.'
     end
   end
 end
