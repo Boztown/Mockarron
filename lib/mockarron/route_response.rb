@@ -7,7 +7,7 @@ module Mockarron
       @id       = SecureRandom.uuid
       @code     = response_def["code"]
       @file     = response_def["file"]
-      @selected = response_def["selected"]
+      @selected = response_def["selected"] || false
       @route    = parent
     end
 
