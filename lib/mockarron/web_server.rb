@@ -24,6 +24,10 @@ module Mockarron
       erb :show
     end
 
+    post "/select/:id" do
+      redirect to "/"
+    end
+
     not_found do
       'This is nowhere to be found.'
     end
