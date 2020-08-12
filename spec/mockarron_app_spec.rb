@@ -20,8 +20,7 @@ RSpec.describe Mockarron::App do
     end
 
     context "when the routes YAML file is available" do
-      # `routes.yaml` doesn't exist, so we'll point it to the template file
-      before { stub_const("Mockarron::App::ROUTE_DATA_FILE", "routes.template.yaml") }
+      include_context "using_routes_fixture"
 
       it "loads up and parses the file" do
         expect(YAML).to receive(:load_file)
@@ -37,10 +36,7 @@ RSpec.describe Mockarron::App do
   end
 
   describe "#find_route_response_by_id" do
-    # `routes.yaml` doesn't exist, so we'll point it to the template file
-    before do
-      stub_const("Mockarron::App::ROUTE_DATA_FILE", "routes.template.yaml")
-    end
+    include_context "using_routes_fixture"
 
     let!(:routes) { subject.load_route_data }
 
@@ -63,10 +59,7 @@ RSpec.describe Mockarron::App do
   end
 
   describe "#select_route_response_by_id" do
-    # `routes.yaml` doesn't exist, so we'll point it to the template file
-    before do
-      stub_const("Mockarron::App::ROUTE_DATA_FILE", "routes.template.yaml")
-    end
+    include_context "using_routes_fixture"
 
     let!(:routes) { subject.load_route_data }
 

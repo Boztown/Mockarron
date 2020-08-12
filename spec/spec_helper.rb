@@ -4,6 +4,7 @@ ENV['RACK_ENV'] = 'test'
 require "bundler/setup"
 require "mockarron"
 require 'rack/test'
+require 'contexts/using_routes_fixture'
 
 module RSpecMixin
   include Rack::Test::Methods
