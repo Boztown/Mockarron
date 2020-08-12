@@ -8,6 +8,7 @@ RSpec.describe Mockarron::WebServer do
         before { stub_const("Mockarron::App::ROUTE_DATA_FILE", "some_file_that_doesnt_exist.yaml") }
 
         it "displays a message" do
+          # expect(Mockarron::App::ROUTE_DATA_FILE).to eq "some_file_that_doesnt_exist.yaml"
           get '/'
           expect(last_response).to be_ok
         end
@@ -24,7 +25,9 @@ RSpec.describe Mockarron::WebServer do
 
   describe "Path: /show/:id" do
     it "returns a successful response" do
-      get '/show/1'
+      routes   = subject.settings.app.routes
+      route_id = routes.first.responses.first.id
+      get "/show/#{route_id}"
       expect(last_response).to be_ok
     end
   end
