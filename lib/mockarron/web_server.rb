@@ -25,6 +25,7 @@ module Mockarron
     end
 
     post "/select/:id" do
+      settings.app.select_route_response_by_id(params["id"])
       redirect to "/"
     end
 

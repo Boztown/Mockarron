@@ -54,10 +54,11 @@ RSpec.describe Mockarron::WebServer do
       end
 
       it "marks the chosen route as 'selected'" do
-        routes   = subject.settings.app.routes
-        route_id = routes.first.responses.first.id
-        post "/select/#{route_id}"
-        expect(last_response.status).to eq 302
+        routes         = subject.settings.app.routes
+        route_response = routes.first.responses[1]
+        expect(route_response.selected).to be false
+        post "/select/#{route_response.id}"
+        expect(route_response.selected).to be true
       end
     end
   end
