@@ -21,4 +21,11 @@ RSpec.describe Mockarron::WebServer do
       expect(last_response).to be_ok
     end
   end
+
+  describe "Path: /show/:id" do
+    it "returns a successful response" do
+      get '/show/1'
+      expect(last_response).to be_ok
+    end
+  end
 end

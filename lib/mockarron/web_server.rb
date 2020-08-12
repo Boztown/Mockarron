@@ -5,19 +5,22 @@ require "mockarron/error"
 
 module Mockarron
   class WebServer < Sinatra::Base
+    set :app, Mockarron::App.new
     set :views, "#{settings.root}/../views"
     set :public_folder, "#{settings.root}/../public"
 
     configure do
-      app = Mockarron::App.new
-      $routes = app.load_route_data
-    rescue Mockarron::Error
-      $routes = []
+      settings.app.load_route_data
     end
 
     get '/' do
-      @routes = $routes
+      @routes = settings.app.routes
       erb :index
+    end
+
+    get "/show/:id" do
+      @route_response = settings.app.find_route_response_by_id(params["id"])
+      erb :show
     end
   end
 end

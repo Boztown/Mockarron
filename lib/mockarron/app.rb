@@ -36,13 +36,25 @@ module Mockarron
     def load_route_data
       if route_file_exists?
         route_data = YAML.load_file(ROUTE_DATA_FILE)
-        route_data.map { |r| Route.new(r) }
+        $global_routes = route_data.map { |r| Route.new(r) }
       else
         false
       end
 
     rescue Errno::ENOENT
       raise Mockarron::Error.new("Cannot open file: #{ROUTE_DATA_FILE}")
+    end
+
+    def routes
+      $global_routes
+    end
+
+    def find_route_response_by_id(id)
+      routes.each do |route|
+        route.responses.each_with_index do |resp, index|
+          return resp if resp.id == id
+        end
+      end
     end
 
     private
