@@ -36,6 +36,14 @@ Run `./exe/mockarron` to run CLI without rebuilding.
 ```
 yardoc
 ```
+
+### Generate Test Coverage Results
+
+```
+bundle exec deep-cover clone rspec
+# look in /.coverage/ for results
+```
+
 ### Run Example Project
 
 cd example_project
