@@ -37,6 +37,9 @@ module Mockarron
       if route_file_exists?
         route_data = YAML.load_file(ROUTE_DATA_FILE)
         $global_routes = route_data.map { |r| Route.new(r) }
+      elsif route_template_exists?
+        route_data = YAML.load_file(ROUTE_TEMPLATE_FILE)
+        $global_routes = route_data.map { |r| Route.new(r) }
       else
         false
       end
@@ -61,6 +64,10 @@ module Mockarron
 
       def route_file_exists?(path = ".")
         File.exists? path + "/" + ROUTE_DATA_FILE
+      end
+
+      def route_template_exists?(path = ".")
+        File.exists? path + "/" + ROUTE_TEMPLATE_FILE
       end
 
       def templates_exists?(path = ".")
