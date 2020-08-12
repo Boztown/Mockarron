@@ -62,6 +62,21 @@ module Mockarron
       nil
     end
 
+    def select_route_response_by_id(id)
+      routes.each do |route|
+        route.responses.each_with_index do |resp, index|
+          if resp.id == id
+            route.responses.each { |r| r.selected = false}
+            resp.selected = true
+            return resp
+          end
+        end
+      end
+
+      nil
+    end
+
+
     private
 
       def route_file_exists?(path = ".")
