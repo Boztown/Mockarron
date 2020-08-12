@@ -45,11 +45,20 @@ RSpec.describe Mockarron::WebServer do
   end
 
   describe "POST: /select/:id" do
-    it do
-      routes   = subject.settings.app.routes
-      route_id = routes.first.responses.first.id
-      post "/select/#{route_id}"
-      expect(last_response.status).to eq 302
+    context "when successful" do
+      it "redirects" do
+        routes   = subject.settings.app.routes
+        route_id = routes.first.responses.first.id
+        post "/select/#{route_id}"
+        expect(last_response.status).to eq 302
+      end
+
+      it "marks the chosen route as 'selected'" do
+        routes   = subject.settings.app.routes
+        route_id = routes.first.responses.first.id
+        post "/select/#{route_id}"
+        expect(last_response.status).to eq 302
+      end
     end
   end
 end
