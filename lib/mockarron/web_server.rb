@@ -15,6 +15,7 @@ module Mockarron
 
     get '/' do
       @routes = settings.app.routes
+      halt 204 unless @routes
       erb :index
     end
 

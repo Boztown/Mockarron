@@ -5,12 +5,13 @@ RSpec.describe Mockarron::WebServer do
   describe "Initialization" do
     context "when there's an issue loading the server" do
       context "because the routes YAML file wasn't loaded" do
-        before { stub_const("Mockarron::App::ROUTE_DATA_FILE", "some_file_that_doesnt_exist.yaml") }
-
         it "displays a message" do
-          # expect(Mockarron::App::ROUTE_DATA_FILE).to eq "some_file_that_doesnt_exist.yaml"
+          allow_any_instance_of(Mockarron::App)
+            .to receive(:routes)
+            .and_return(nil)
+
           get '/'
-          expect(last_response).to be_ok
+          expect(last_response.status).to eq 204
         end
       end
     end
