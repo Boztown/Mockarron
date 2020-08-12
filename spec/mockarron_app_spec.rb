@@ -2,7 +2,40 @@ require 'spec_helper'
 
 RSpec.describe Mockarron::App do
   describe "#new_project" do
-    xcontext "when the selected project path is not empty" do
+    context "when the selected project path does not exist" do
+      include_context "clearing_tmp_dir"
+      let(:spec_tmp_dir) { "spec/tmp" }
+
+      it "returns a Result with an error flag and message" do
+        path = spec_tmp_dir + "/mymock"
+
+        allow(subject)
+          .to receive(:path_does_not_exist?)
+          .and_return(true)
+
+        allow(subject)
+          .to receive(:path_is_not_empty?)
+          .and_return(false)
+
+        result = subject.new_project(path)
+        expect(result.error?).to be false
+      end
+    end
+
+    context "when the selected project path is not empty" do
+      it "returns a Result with an error flag and message" do
+        allow(subject)
+          .to receive(:path_does_not_exist?)
+          .and_return(false)
+
+        allow(subject)
+          .to receive(:path_is_not_empty?)
+          .and_return(true)
+
+        result = subject.new_project("/some/path")
+        expect(result.error?).to be true
+        expect(result.message).to be ""
+      end
     end
   end
 

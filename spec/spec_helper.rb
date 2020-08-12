@@ -5,6 +5,7 @@ require "bundler/setup"
 require "mockarron"
 require 'rack/test'
 require 'contexts/using_routes_fixture'
+require 'contexts/clearing_tmp_dir'
 
 module RSpecMixin
   include Rack::Test::Methods

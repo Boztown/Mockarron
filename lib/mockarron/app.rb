@@ -10,7 +10,7 @@ module Mockarron
 
     def new_project(path = ".")
       if path_does_not_exist?(path)
-        Dir.mkdir(path)
+        FileUtils.mkdir_p(path)
       end
 
       if path_is_not_empty?(path)
