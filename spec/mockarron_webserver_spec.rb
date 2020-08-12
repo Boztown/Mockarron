@@ -24,11 +24,21 @@ RSpec.describe Mockarron::WebServer do
   end
 
   describe "Path: /show/:id" do
-    it "returns a successful response" do
-      routes   = subject.settings.app.routes
-      route_id = routes.first.responses.first.id
-      get "/show/#{route_id}"
-      expect(last_response).to be_ok
+    context "when the supplied ID exists" do
+      it "is expected to return a 200" do
+        routes   = subject.settings.app.routes
+        route_id = routes.first.responses.first.id
+        get "/show/#{route_id}"
+        expect(last_response.status).to eq 200
+      end
+    end
+
+    context "when the supplied ID does not exist" do
+      it "is expected to return a 404" do
+        route_id = "dingdong"
+        get "/show/#{route_id}"
+        expect(last_response.status).to eq 404
+      end
     end
   end
 end
