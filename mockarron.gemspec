@@ -42,7 +42,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry-byebug', '3.9.0'
   spec.add_development_dependency 'rack-test'
   spec.add_development_dependency 'yard'
-
+  spec.add_development_dependency 'deep-cover', '~> 1.0.0'
   spec.add_dependency 'sinatra', '2.0.8.1'
   spec.add_dependency "thor"
   spec.add_dependency 'json', '2.3.1'
