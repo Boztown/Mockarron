@@ -1,4 +1,6 @@
-module Mockarron; end
+module Mockarron
+  require 'securerandom'
+end
 
 require "mockarron/version"
 require "mockarron/app"
