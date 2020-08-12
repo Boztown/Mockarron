@@ -32,5 +32,41 @@ module Mockarron
     not_found do
       'This is nowhere to be found.'
     end
+
+    #####################
+    settings.app.routes.each do |route|
+      send(route.method, route.uri) do
+        responses = []
+
+        if params.any?
+          settings.app.routes.each do |r|
+            if r.params
+              if (r.params.to_a - params.to_a).empty?
+                # They match params, so the response options become that of this route
+                responses = r.responses
+              end
+            end
+          end
+        else
+          settings.app.routes.each do |r|
+            if r.uri == route.uri
+              responses = r.responses
+            end
+          end
+        end
+
+        responses.each_with_index do |resp, index|
+          if resp.selected
+            return [resp.code, {}, read_file(resp.file)]
+          end
+        end
+
+        [404, {}, "No file found!"]
+      end
+    end
+
+    def read_file(filepath)
+      File.read("templates/#{filepath}")
+    end
   end
 end
