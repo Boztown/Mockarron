@@ -31,3 +31,9 @@ jobs:
       run: bundle install
     - name: Run tests
       run: bundle exec rake
+    - name: Generate docs
+      run: bundle exec yardoc
+    - uses: actions/upload-artifact@v2
+      with:
+        name: documentation
+        path: doc/
