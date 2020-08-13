@@ -15,6 +15,39 @@ RSpec.describe Mockarron::WebServer do
         end
       end
     end
+
+    context "when successful" do
+      it "creates routes dynamically based on `routes.yaml`" do
+        # The `configure` block in Mockarron::WebServer runs immediately as
+        # due to the constant `Mockarron::WebServer` being defined at the top
+        # of this spec file.
+        #
+        # When it initializes it will immediately try to load route data.
+        # Here we'll make it load the test fixture instead.
+        route_data = YAML.load_file("./spec/fixtures/routes.test.yaml")
+        routes = route_data.map { |r| Mockarron::Route.new(r) }
+
+        allow_any_instance_of(Mockarron::App)
+          .to receive(:load_route_data)
+          .and_return(routes)
+
+        # This freak is comparing the route data we have loaded with
+        # what Sinatra has initialized as actual routes.
+        count = 0
+        routes.each do |route|
+          subject.helpers.class.routes.each do |r|
+            next if r[0] == "HEAD"
+            r[1].each do |m|
+              if m[0].to_s == route.uri
+                count += 1
+              end
+            end
+          end
+        end
+
+        expect(count).to eq routes.length
+      end
+    end
   end
 
   describe "GET: /" do
