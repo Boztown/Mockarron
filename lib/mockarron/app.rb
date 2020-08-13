@@ -52,6 +52,9 @@ module Mockarron
       $global_routes
     end
 
+    # Find and return a `RouteResponse` by ID.
+    #
+    # @return [Mockarron::RouteResponse]
     def find_route_response_by_id(id)
       routes.each do |route|
         route.responses.each_with_index do |resp, index|
