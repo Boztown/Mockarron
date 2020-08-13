@@ -34,7 +34,7 @@ RSpec.describe Mockarron::App do
 
         result = subject.new_project("/some/path")
         expect(result.error?).to be true
-        expect(result.message).to be ""
+        expect(result.message).to eq "Directory is not empty!"
       end
     end
   end
