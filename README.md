@@ -34,7 +34,11 @@ Run `./exe/mockarron` to run CLI without rebuilding.
 
 ### Generate Documentation
 ```
-yardoc
+bundle exec yard
+```
+
+```
+bundle exec yard server --reload
 ```
 
 ### Generate Test Coverage Results

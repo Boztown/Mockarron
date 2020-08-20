@@ -1,4 +1,7 @@
 module Mockarron
+
+  # Does a thing
+  # @since 0.8.0
   class RouteResponse
     attr_reader :id, :file, :route
     attr_accessor :selected
