@@ -1,18 +1,11 @@
 --- 
 /users: 
+  method: get
   responses: 
     - 
-      method: get
       code: 200
       file: users/index.json
       selected: true
     - 
-      method: post
-      code: 406
-      file: users/index.json
-      selected: true
-    -
-      method: get
       code: 503
       file: general_errors/503.json
-    -

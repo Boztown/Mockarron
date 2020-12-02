@@ -9,3 +9,14 @@
     - 
       code: 503
       file: general_errors/503.json
+
+/user/:0: 
+  method: get
+  responses: 
+    - 
+      code: 200
+      file: users/index.json
+      selected: true
+    - 
+      code: 503
+      file: general_errors/503.json

@@ -1,6 +1,10 @@
 require 'mockarron/route_response'
 
 module Mockarron
+  # A `Route` defines and object that accepts the data structure
+  # for a route, as defined in the project config file.
+  #
+  # It strives to provide an interface and helper methods around that data.
   class Route
     attr_reader :uri, :params, :responses
 
